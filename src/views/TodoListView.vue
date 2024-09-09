@@ -3,13 +3,14 @@
       <input v-model="newItemText" @keyup.enter="addItem" placeholder="Add a new to-do">
       <button @click="addItem">Add</button>
       
-      <div v-for="(item, index) in items" :key="index">
+      <div v-for="(item, index) in todoItems" :key="item.index">
         <TodoItem 
           :item="item" 
           @update="updateItem(index, $event)" 
           @remove="removeItem(index)">
         </TodoItem>
-      </div>
+
+        </div>
     </div>
   </template>
   
@@ -23,14 +24,23 @@
     data() {
       return {
         newItemText: '',
-        items: [/* 
+        todoItems: [/* har vi ikke brug for mere, da vi henter data fra Firestore */
             { text: "Learn Vue.js", completed: false },
-            { text: "Build a to-do list app", completed: false } */
+            { text: "Build a to-do list app", completed: false } 
             { id: 1, text: "Learn Vue.js", completed: false },
-            { id: 2, text: "Build a to-do list app", completed: false }
+            { id: 2, text: "Build a to-do list app", completed: false }*/
         ]
       };
     },
+    async mounted() {
+      try {
+      this.todoItems = await TodoService.getTodoItems();
+      console.log('mounted: ', this.todoItems); // Debugging: se om dataene bliver tilføjet til todoItems
+      this.items = this.todoItems; 
+    } catch (error) {
+    console.error("Error fetching todo items: ", error);
+  }
+},
     methods: {
       // The .trim() method is a built-in JavaScript string method that removes whitespace from both ends of a string.
       addItem() {

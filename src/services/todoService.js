@@ -21,6 +21,7 @@ class TodoService {
   async getTodoItems() {
     const q = query(collection(db, 'todos'), orderBy('createdAt'));
     const querySnapshot = await getDocs(q);
+    console.log(querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))); // Tilføjet til debugging
     return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
   }
 }
