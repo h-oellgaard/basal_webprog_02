@@ -24,11 +24,7 @@
     data() {
       return {
         newItemText: '',
-        todoItems: [/* har vi ikke brug for mere, da vi henter data fra Firestore */
-            { text: "Learn Vue.js", completed: false },
-            { text: "Build a to-do list app", completed: false } 
-            { id: 1, text: "Learn Vue.js", completed: false },
-            { id: 2, text: "Build a to-do list app", completed: false }*/
+        todoItems: [
         ]
       };
     },
